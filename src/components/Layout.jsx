@@ -17,7 +17,7 @@ export default function Layout() {
         document.title = `${pageTitles[pathname] ?? 'Página no encontrada'} | Mercado Vecino`;
         if (previousPath.current !== pathname) {
             window.scrollTo(0, 0);
-            mainRef.current?.focus();
+            mainRef.current?.focus({ preventScroll: true });
             previousPath.current = pathname;
         }
     }, [pathname]);
