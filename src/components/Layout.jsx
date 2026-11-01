@@ -1,9 +1,12 @@
 import { useEffect, useRef } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import BottomNav from './BottomNav.jsx';
+import InventoryNav from './InventoryNav.jsx';
 
 const pageTitles = {
     '/': 'Inicio',
+    '/inventario': 'Inventario',
+    '/inventario/nuevo': 'Ingresar artículo',
     '/quienes-somos': 'Quiénes somos',
     '/preguntas-frecuentes': 'Preguntas frecuentes',
 };
@@ -37,6 +40,7 @@ export default function Layout() {
                 </Link>
                 <span className="header-note">Lo cotidiano, bien elegido.</span>
             </header>
+            <InventoryNav />
             <main id="main-content" ref={mainRef} tabIndex={-1}>
                 <Outlet />
             </main>
