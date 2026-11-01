@@ -142,139 +142,12 @@ p {
     margin-top: 20px;
 }
 .hero-art {
+    display: block;
+    width: 100%;
     height: 420px;
-    position: relative;
-    overflow: hidden;
+    object-fit: contain;
     background: #e5e9d9;
     border-radius: 130px 8px 8px 8px;
-}
-.art-label {
-    position: absolute;
-    top: 28px;
-    right: 24px;
-    font-size: 9px;
-    letter-spacing: 2px;
-    display: flex;
-    align-items: center;
-    gap: 18px;
-}
-.art-label span {
-    font-size: 27px;
-}
-.bag {
-    position: absolute;
-    width: 180px;
-    height: 205px;
-    background: #c59b69;
-    top: 155px;
-    left: calc(50% - 90px);
-    transform: rotate(-8deg);
-    box-shadow:
-        14px 18px 30px #24483e20,
-        inset -16px 0 #b48955;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.bag::before {
-    content: '';
-    position: absolute;
-    width: 64px;
-    height: 52px;
-    border: 7px solid #ae8455;
-    border-bottom: 0;
-    border-radius: 40px 40px 0 0;
-    top: -44px;
-}
-.bag > span {
-    line-height: 1.1;
-    font-size: 28px;
-    letter-spacing: -1px;
-    transform: rotate(0);
-}
-.bag > span strong {
-    font-weight: 700;
-}
-.bag-mark {
-    position: absolute;
-    bottom: 12px;
-    left: 18px;
-    font-size: 32px;
-}
-.leaf {
-    position: absolute;
-    background: #4f6d36;
-    width: 58px;
-    height: 156px;
-    border-radius: 100% 0 100% 0;
-    top: 50px;
-    left: 46%;
-    transform: rotate(-22deg);
-}
-.leaf-two {
-    left: 33%;
-    top: 78px;
-    transform: rotate(-58deg);
-    background: #78904e;
-}
-.leaf-three {
-    left: 57%;
-    top: 70px;
-    transform: rotate(20deg);
-    background: #34583a;
-}
-.orange {
-    position: absolute;
-    border-radius: 50%;
-    background: #cf782e;
-    box-shadow:
-        inset -10px -12px 0 #bb602627,
-        7px 10px 18px #24483e17;
-    width: 80px;
-    height: 80px;
-    bottom: 39px;
-    right: 35px;
-}
-.orange::before {
-    content: '';
-    position: absolute;
-    width: 24px;
-    height: 12px;
-    background: #477344;
-    border-radius: 100% 0;
-    left: 31px;
-    top: -3px;
-    transform: rotate(-20deg);
-}
-.orange-two {
-    right: 97px;
-    bottom: 26px;
-    width: 66px;
-    height: 66px;
-    background: #e19742;
-}
-.art-stamp {
-    position: absolute;
-    bottom: 90px;
-    left: 28px;
-    width: 75px;
-    height: 75px;
-    background: #f5f3e9;
-    border: 1px dashed #6e7d5c;
-    border-radius: 50%;
-    font-size: 10px;
-    font-weight: 700;
-    text-align: center;
-    padding-top: 22px;
-    line-height: 1.5;
-    transform: rotate(-15deg);
-}
-.art-caption {
-    position: absolute;
-    bottom: 14px;
-    left: 23px;
-    font-size: 8px;
-    letter-spacing: 1.4px;
 }
 .section-space {
     padding-block: 35px 48px;
@@ -499,10 +372,6 @@ details[open] .question-toggle {
     .hero h1 {
         font-size: 44px;
     }
-    .art-stamp {
-        left: 10px;
-        bottom: 60px;
-    }
     .section-aside {
         display: none;
     }
@@ -539,21 +408,6 @@ details[open] .question-toggle {
     .hero-art {
         height: 360px;
         border-top-left-radius: 100px;
-    }
-    .bag {
-        top: 120px;
-    }
-    .leaf {
-        top: 24px;
-    }
-    .leaf-two {
-        top: 45px;
-    }
-    .leaf-three {
-        top: 40px;
-    }
-    .art-label {
-        top: 20px;
     }
     .department-grid,
     .values,
