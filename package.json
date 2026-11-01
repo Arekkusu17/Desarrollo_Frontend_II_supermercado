@@ -1,7 +1,7 @@
 {
     "name": "supermercado-frontend",
     "private": true,
-    "version": "1.0.0",
+    "version": "2.0.0",
     "type": "module",
     "engines": {
         "node": ">=22.12.0"
@@ -11,7 +11,8 @@
         "build": "vite build",
         "preview": "vite preview --host 127.0.0.1",
         "format": "prettier --write .",
-        "format:check": "prettier --check ."
+        "format:check": "prettier --check .",
+        "test": "node --test src/utils/*.test.js"
     },
     "dependencies": {
         "react": "^19.3.1",
@@ -19,8 +20,10 @@
         "react-router-dom": "^7.18.5"
     },
     "devDependencies": {
+        "@tailwindcss/vite": "^4.3.3",
         "@vitejs/plugin-react": "^5.2.0",
         "prettier": "^3.9.10",
+        "tailwindcss": "^4.3.3",
         "vite": "^7.3.7"
     }
 }
