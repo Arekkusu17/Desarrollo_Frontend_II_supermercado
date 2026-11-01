@@ -41,29 +41,14 @@ export default function HomePage() {
                     </Link>
                     <span className="hero-caption">De nuestra selección a tu mesa.</span>
                 </div>
-                <div className="hero-art" aria-hidden="true">
-                    <div className="art-label">
-                        SELECCIÓN VECINA <span>✳</span>
-                    </div>
-                    <div className="leaf leaf-one" />
-                    <div className="leaf leaf-two" />
-                    <div className="leaf leaf-three" />
-                    <div className="bag">
-                        <span>
-                            mercado
-                            <br />
-                            <strong>vecino</strong>
-                        </span>
-                        <div className="bag-mark">✳</div>
-                    </div>
-                    <div className="orange orange-one" />
-                    <div className="orange orange-two" />
-                    <div className="art-stamp">
-                        FRESCO
-                        <br />Y SIMPLE
-                    </div>
-                    <span className="art-caption">UN POCO DE TODO. MUCHO DE LO BUENO.</span>
-                </div>
+                <img
+                    className="hero-art"
+                    src="/assets/images/market-selection.webp"
+                    width="1040"
+                    height="840"
+                    alt="Bolsa de Mercado Vecino acompañada de hojas verdes y naranjas."
+                    fetchPriority="high"
+                />
             </section>
             <section className="departments section-space" aria-labelledby="departments-title">
                 <div className="section-heading">
