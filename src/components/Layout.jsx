@@ -64,7 +64,6 @@ export default function Layout() {
             </main>
             <footer className="site-footer">
                 <span>Mercado Vecino</span>
-                <span>Proyecto académico · Supermercado ficticio</span>
             </footer>
             <BottomNav />
         </>
