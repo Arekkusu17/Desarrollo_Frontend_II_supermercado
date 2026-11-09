@@ -21,5 +21,15 @@ export function validateArticle(values) {
         }
     }
 
+    const stockInput = values?.stock;
+    const stock =
+        typeof stockInput === 'string' && stockInput.trim() ? Number(stockInput) : stockInput;
+
+    if (!Number.isSafeInteger(stock) || stock < 0) {
+        errors.stock = 'Ingresa un stock inicial entero igual o mayor que cero.';
+    } else {
+        article.stock = stock;
+    }
+
     return { article, errors, isValid: Object.keys(errors).length === 0 };
 }

@@ -1,10 +1,11 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useReducer } from 'react';
 import { validateArticle } from '../utils/inventory.js';
+import { initialInventory, inventoryReducer } from './inventoryReducer.js';
 
 const InventoryContext = createContext(null);
 
 export function InventoryProvider({ children }) {
-    const [articles, setArticles] = useState([]);
+    const [{ articles, cart }, dispatch] = useReducer(inventoryReducer, initialInventory);
 
     function addArticle(values) {
         const result = validateArticle(values);
@@ -13,12 +14,22 @@ export function InventoryProvider({ children }) {
         }
 
         const article = { ...result.article, id: crypto.randomUUID() };
-        setArticles((currentArticles) => [...currentArticles, article]);
+        dispatch({ type: 'article/added', article });
         return { ...result, article };
     }
 
+    function addToCart(articleId) {
+        dispatch({ type: 'cart/increased', articleId });
+    }
+
+    function removeFromCart(articleId) {
+        dispatch({ type: 'cart/decreased', articleId });
+    }
+
     return (
-        <InventoryContext.Provider value={{ articles, addArticle }}>
+        <InventoryContext.Provider
+            value={{ articles, cart, addArticle, addToCart, removeFromCart }}
+        >
             {children}
         </InventoryContext.Provider>
     );

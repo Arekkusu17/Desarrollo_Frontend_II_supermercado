@@ -1,8 +1,14 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useInventory } from '../context/InventoryContext.jsx';
 
 export default function InventoryPage() {
     const { articles } = useInventory();
+    const [category, setCategory] = useState('');
+    const categories = new Map(articles.map(({ type }) => [type.toLocaleLowerCase('es'), type]));
+    const visibleArticles = category
+        ? articles.filter(({ type }) => type.toLocaleLowerCase('es') === category)
+        : articles;
 
     return (
         <>
@@ -32,8 +38,27 @@ export default function InventoryPage() {
                         className="rounded-full bg-[#e8eddc] px-4 py-2 text-xs font-medium"
                         role="status"
                     >
-                        {articles.length} {articles.length === 1 ? 'artículo' : 'artículos'}
+                        {visibleArticles.length}{' '}
+                        {visibleArticles.length === 1 ? 'artículo' : 'artículos'}
                     </span>
+                </div>
+                <div className="mb-4 flex flex-wrap items-center gap-3">
+                    <label htmlFor="inventory-category" className="text-sm font-medium">
+                        Filtrar por categoría
+                    </label>
+                    <select
+                        id="inventory-category"
+                        value={category}
+                        onChange={(event) => setCategory(event.target.value)}
+                        className="min-h-11 max-w-full rounded-lg border border-market-line bg-white px-3 py-2 text-sm"
+                    >
+                        <option value="">Todas</option>
+                        {[...categories].map(([value, label]) => (
+                            <option key={value} value={value}>
+                                {label}
+                            </option>
+                        ))}
+                    </select>
                 </div>
                 <div
                     className="overflow-x-auto rounded-xl border border-market-line bg-market-paper"
@@ -43,7 +68,7 @@ export default function InventoryPage() {
                 >
                     <table className="w-full min-w-[520px] border-collapse text-left text-sm">
                         <caption className="sr-only">
-                            Lista completa de artículos con nombre, marca y tipo de producto
+                            Artículos con nombre, marca, tipo de producto y stock disponible
                         </caption>
                         <thead className="bg-market text-white">
                             <tr>
@@ -59,10 +84,13 @@ export default function InventoryPage() {
                                 <th scope="col" className="px-5 py-4 font-medium">
                                     Tipo de producto
                                 </th>
+                                <th scope="col" className="px-5 py-4 font-medium">
+                                    Stock
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
-                            {articles.map((article, index) => (
+                            {visibleArticles.map((article, index) => (
                                 <tr
                                     key={article.id}
                                     className="border-t border-market-line even:bg-[#f0f2e9]"
@@ -74,7 +102,12 @@ export default function InventoryPage() {
                                         scope="row"
                                         className="max-w-64 break-words px-5 py-5 font-medium"
                                     >
-                                        {article.name}
+                                        <Link
+                                            to={`/inventario/${article.id}`}
+                                            className="underline underline-offset-4"
+                                        >
+                                            {article.name}
+                                        </Link>
                                     </th>
                                     <td className="max-w-56 break-words px-5 py-5 text-market-muted">
                                         {article.brand}
@@ -82,11 +115,12 @@ export default function InventoryPage() {
                                     <td className="max-w-56 break-words px-5 py-5 text-market-muted">
                                         {article.type}
                                     </td>
+                                    <td className="px-5 py-5 tabular-nums">{article.stock}</td>
                                 </tr>
                             ))}
                             {articles.length === 0 && (
                                 <tr>
-                                    <td colSpan={4} className="px-6 py-12 text-center">
+                                    <td colSpan={5} className="px-6 py-12 text-center">
                                         <p className="font-medium">
                                             Aún no hay artículos en el inventario.
                                         </p>
@@ -106,8 +140,8 @@ export default function InventoryPage() {
                     </table>
                 </div>
                 <p className="mt-5 text-xs text-market-muted">
-                    La tabla muestra todos los artículos de esta sesión. Al recargar la página se
-                    reinicia el inventario.
+                    Los artículos se mantienen durante esta sesión. Al recargar la página, el
+                    inventario se reinicia.
                 </p>
             </section>
         </>

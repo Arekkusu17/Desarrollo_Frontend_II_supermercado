@@ -6,6 +6,8 @@ import FaqPage from './pages/FaqPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
 import InventoryPage from './pages/InventoryPage.jsx';
 import AddArticlePage from './pages/AddArticlePage.jsx';
+import ArticleDetailPage from './pages/ArticleDetailPage.jsx';
+import CartPage from './pages/CartPage.jsx';
 
 export default function App() {
     return (
@@ -16,6 +18,8 @@ export default function App() {
                 <Route path="preguntas-frecuentes" element={<FaqPage />} />
                 <Route path="inventario" element={<InventoryPage />} />
                 <Route path="inventario/nuevo" element={<AddArticlePage />} />
+                <Route path="inventario/:id" element={<ArticleDetailPage />} />
+                <Route path="carrito" element={<CartPage />} />
                 <Route path="*" element={<NotFoundPage />} />
             </Route>
         </Routes>
