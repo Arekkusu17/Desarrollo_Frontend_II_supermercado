@@ -33,10 +33,6 @@ export default function AboutPage() {
                         trato amable. Nuestra identidad combina lo práctico de un supermercado con
                         la calidez de un negocio de barrio.
                     </p>
-                    <p className="academic-note">
-                        Mercado Vecino es una marca ficticia creada para un proyecto académico. La
-                        información de este sitio es demostrativa.
-                    </p>
                 </div>
             </section>
             <section className="values section-space" aria-label="Nuestros valores">

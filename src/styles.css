@@ -305,11 +305,6 @@
         font-size: 72px;
         color: #a65f3d;
     }
-    .academic-note {
-        border-left: 2px solid #9da98d;
-        padding-left: 20px;
-        font-size: 12px !important;
-    }
     .values {
         border-top: 1px solid var(--line);
     }
