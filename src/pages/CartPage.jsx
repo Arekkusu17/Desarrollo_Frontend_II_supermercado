@@ -1,11 +1,9 @@
 import { Link } from 'react-router-dom';
+import CartQuantityControls from '../components/CartQuantityControls.jsx';
 import { useInventory } from '../context/InventoryContext.jsx';
 
-const quantityButton =
-    'min-h-11 min-w-11 cursor-pointer rounded-lg border border-market-line bg-white px-3 font-semibold text-market hover:bg-market/10 disabled:cursor-not-allowed disabled:opacity-60';
-
 export default function CartPage() {
-    const { articles, cart, addToCart, removeFromCart } = useInventory();
+    const { articles, cart } = useInventory();
     const articlesById = new Map(articles.map((article) => [article.id, article]));
     const totalUnits = cart.reduce((total, item) => total + item.quantity, 0);
 
@@ -46,28 +44,10 @@ export default function CartPage() {
                                     {article.brand} · {article.type}
                                 </p>
                                 <p className="mt-1 text-sm text-market-muted">
-                                    Cantidad: {quantity}. Stock disponible: {article.stock}.
+                                    Stock disponible: {article.stock}.
                                 </p>
                             </div>
-                            <div className="flex items-center gap-2">
-                                <button
-                                    type="button"
-                                    aria-label={`Quitar una unidad de ${article.name}`}
-                                    className={quantityButton}
-                                    onClick={() => removeFromCart(articleId)}
-                                >
-                                    −
-                                </button>
-                                <button
-                                    type="button"
-                                    aria-label={`Agregar una unidad de ${article.name}`}
-                                    className={quantityButton}
-                                    onClick={() => addToCart(articleId)}
-                                    disabled={article.stock === 0}
-                                >
-                                    +
-                                </button>
-                            </div>
+                            <CartQuantityControls article={article} quantity={quantity} />
                         </li>
                     );
                 })}

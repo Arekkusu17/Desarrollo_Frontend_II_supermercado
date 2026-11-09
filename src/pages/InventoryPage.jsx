@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import CartQuantityControls from '../components/CartQuantityControls.jsx';
 import { useInventory } from '../context/InventoryContext.jsx';
 
 export default function InventoryPage() {
-    const { articles } = useInventory();
+    const { articles, cart } = useInventory();
+    const quantities = new Map(cart.map(({ articleId, quantity }) => [articleId, quantity]));
     const [category, setCategory] = useState('');
     const categories = new Map(articles.map(({ type }) => [type.toLocaleLowerCase('es'), type]));
     const visibleArticles = category
@@ -66,9 +68,9 @@ export default function InventoryPage() {
                     aria-label="Tabla de inventario"
                     tabIndex={0}
                 >
-                    <table className="w-full min-w-[520px] border-collapse text-left text-sm">
+                    <table className="w-full min-w-[640px] border-collapse text-left text-sm">
                         <caption className="sr-only">
-                            Artículos con nombre, marca, tipo de producto y stock disponible
+                            Artículos, stock disponible y controles del carrito
                         </caption>
                         <thead className="bg-market text-white">
                             <tr>
@@ -86,6 +88,9 @@ export default function InventoryPage() {
                                 </th>
                                 <th scope="col" className="px-5 py-4 font-medium">
                                     Stock
+                                </th>
+                                <th scope="col" className="px-5 py-4 font-medium">
+                                    Carrito
                                 </th>
                             </tr>
                         </thead>
@@ -116,11 +121,17 @@ export default function InventoryPage() {
                                         {article.type}
                                     </td>
                                     <td className="px-5 py-5 tabular-nums">{article.stock}</td>
+                                    <td className="px-5 py-2">
+                                        <CartQuantityControls
+                                            article={article}
+                                            quantity={quantities.get(article.id) ?? 0}
+                                        />
+                                    </td>
                                 </tr>
                             ))}
                             {articles.length === 0 && (
                                 <tr>
-                                    <td colSpan={5} className="px-6 py-12 text-center">
+                                    <td colSpan={6} className="px-6 py-12 text-center">
                                         <p className="font-medium">
                                             Aún no hay artículos en el inventario.
                                         </p>
