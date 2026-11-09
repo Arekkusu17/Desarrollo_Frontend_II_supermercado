@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useInventory } from '../context/InventoryContext.jsx';
 
 export default function InventoryPage() {
     const { articles } = useInventory();
+    const location = useLocation();
     const [category, setCategory] = useState('');
     const categories = new Map(articles.map(({ type }) => [type.toLocaleLowerCase('es'), type]));
     const visibleArticles = category
@@ -105,6 +106,8 @@ export default function InventoryPage() {
                                     >
                                         <Link
                                             to={`/inventario/${article.id}`}
+                                            state={{ inventoryLocation: location }}
+                                            aria-haspopup="dialog"
                                             className="underline underline-offset-4"
                                         >
                                             {article.name}

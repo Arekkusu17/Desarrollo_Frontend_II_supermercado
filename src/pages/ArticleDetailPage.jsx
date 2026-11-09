@@ -1,31 +1,51 @@
-import { Link, useParams } from 'react-router-dom';
+import { useLayoutEffect, useRef } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useInventory } from '../context/InventoryContext.jsx';
 import NotFoundPage from './NotFoundPage.jsx';
 
-export default function ArticleDetailPage() {
-    const { id } = useParams();
-    const { articles, cart, addToCart } = useInventory();
-    const article = articles.find((item) => item.id === id);
+function ArticleDetailDialog({ title, onDismiss, children }) {
+    const dialogRef = useRef(null);
 
-    if (!article) {
-        return (
-            <NotFoundPage
-                title="Artículo no encontrado"
-                description="Este artículo no está en el inventario de la sesión actual."
-                backTo="/inventario"
-                backLabel="Volver al inventario"
-            />
-        );
-    }
-
-    const quantity = cart.find((item) => item.articleId === id)?.quantity ?? 0;
+    useLayoutEffect(() => {
+        const dialog = dialogRef.current;
+        dialog.showModal();
+        return () => dialog.close();
+    }, []);
 
     return (
-        <section className="max-w-2xl py-9 md:py-12">
-            <Link to="/inventario" className="text-sm underline underline-offset-4">
-                Volver al inventario
-            </Link>
-            <p className="eyebrow mt-6">DETALLE DEL ARTÍCULO</p>
+        <dialog
+            ref={dialogRef}
+            aria-label={title}
+            onCancel={(event) => {
+                event.preventDefault();
+                onDismiss();
+            }}
+            className="fixed inset-0 m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-2xl overflow-y-auto rounded-2xl border border-market-line bg-market-paper p-5 text-market shadow-xl backdrop:bg-market/50 sm:p-8"
+        >
+            <div className="flex justify-end">
+                <button
+                    type="button"
+                    onClick={onDismiss}
+                    className="inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-lg px-3 text-sm font-medium text-market hover:bg-market/10"
+                >
+                    Cerrar <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            {children}
+        </dialog>
+    );
+}
+
+export default function ArticleDetailPage({ asDialog = false }) {
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const { articles, cart, addToCart } = useInventory();
+    const article = articles.find((item) => item.id === id);
+    const quantity = cart.find((item) => item.articleId === id)?.quantity ?? 0;
+
+    const content = article ? (
+        <>
+            <p className="eyebrow">DETALLE DEL ARTÍCULO</p>
             <h1 className="mb-6 text-4xl wrap-break-word md:text-5xl">{article.name}</h1>
             <dl className="grid gap-4 rounded-xl border border-market-line bg-market-paper p-5 sm:grid-cols-2">
                 <div className="min-w-0">
@@ -50,10 +70,48 @@ export default function ArticleDetailPage() {
                 >
                     Agregar al carrito
                 </button>
-                <Link to="/carrito" className="text-sm underline underline-offset-4">
+                <Link
+                    to="/carrito"
+                    replace={asDialog}
+                    className="text-sm underline underline-offset-4"
+                >
                     Ver carrito
                 </Link>
             </div>
+        </>
+    ) : (
+        <NotFoundPage
+            title="Artículo no encontrado"
+            description="Este artículo no está en el inventario de la sesión actual."
+            backTo="/inventario"
+            backLabel="Volver al inventario"
+        />
+    );
+
+    if (asDialog) {
+        return (
+            <ArticleDetailDialog
+                title={article?.name ?? 'Artículo no encontrado'}
+                onDismiss={() => navigate(-1)}
+            >
+                {content}
+            </ArticleDetailDialog>
+        );
+    }
+
+    if (!article) {
+        return content;
+    }
+
+    return (
+        <section className="max-w-2xl py-9 md:py-12">
+            <Link
+                to="/inventario"
+                className="mb-6 inline-block text-sm underline underline-offset-4"
+            >
+                Volver al inventario
+            </Link>
+            {content}
         </section>
     );
 }
