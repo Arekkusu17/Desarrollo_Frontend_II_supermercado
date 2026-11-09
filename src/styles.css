@@ -292,16 +292,15 @@
         color: var(--muted);
         font-size: 16px;
     }
-    .story {
-        display: grid;
-        grid-template-columns: 1fr 1.4fr;
-        gap: 60px;
+    .story h2 {
+        margin-bottom: 25px;
     }
     .story p {
         color: var(--muted);
         font-size: 15px;
     }
     .large-flower {
+        display: block;
         font-size: 72px;
         color: #a65f3d;
     }
@@ -362,6 +361,21 @@
         min-height: 65vh;
     }
 
+    @media (min-width: 768px) {
+        .story {
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr);
+            align-items: start;
+            column-gap: clamp(24px, 5vw, 60px);
+        }
+        .story h2 {
+            margin: 0 0 10px;
+        }
+        .large-flower {
+            line-height: 1;
+        }
+    }
+
     @media (max-width: 900px) {
         .site-header,
         main,
@@ -416,7 +430,6 @@
         }
         .department-grid,
         .values,
-        .story,
         .faq-layout {
             grid-template-columns: 1fr;
         }
@@ -440,7 +453,6 @@
         .page-intro {
             padding-block: 35px;
         }
-        .story,
         .faq-layout {
             gap: 15px;
         }

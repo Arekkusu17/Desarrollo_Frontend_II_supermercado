@@ -16,13 +16,11 @@ export default function AboutPage() {
                 </p>
             </section>
             <section className="story section-space">
-                <div className="story-heading">
-                    <span className="large-flower" aria-hidden="true">
-                        ✳
-                    </span>
-                    <h2>Lo que nos mueve.</h2>
-                </div>
+                <span className="large-flower" aria-hidden="true">
+                    ✳
+                </span>
                 <div>
+                    <h2>Lo que nos mueve.</h2>
                     <p>
                         Somos una propuesta de supermercado pensada para acompañar la vida
                         cotidiana. Reunimos productos de despensa, frutas, verduras y panadería en
