@@ -25,10 +25,31 @@ export default function InventoryNav() {
                 <NavLink className={linkClasses} to="/inventario/nuevo">
                     <span aria-hidden="true">+</span> Ingresar artículo
                 </NavLink>
-                <NavLink className={linkClasses} to="/carrito">
+                <NavLink
+                    className={linkClasses}
+                    to="/carrito"
+                    aria-label={`Carrito, ${totalUnits} ${totalUnits === 1 ? 'unidad' : 'unidades'}`}
+                >
                     Carrito
-                    <span className="rounded-full border border-current/25 px-2 text-xs">
-                        {totalUnits}
+                    <span className="relative" aria-hidden="true">
+                        <svg
+                            className="size-5"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.8"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        >
+                            <path d="M2 3h3l3 12h11l2-8H6" />
+                            <circle cx="9" cy="20" r="1.25" />
+                            <circle cx="18" cy="20" r="1.25" />
+                        </svg>
+                        {totalUnits > 0 && (
+                            <span className="absolute -top-2 right-0 flex h-4 min-w-4 translate-x-1/2 items-center justify-center rounded-full bg-market-accent px-1 text-[10px] leading-none font-bold text-white tabular-nums ring-2 ring-market-paper">
+                                {totalUnits}
+                            </span>
+                        )}
                     </span>
                 </NavLink>
             </nav>
