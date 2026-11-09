@@ -149,8 +149,8 @@ export default function AddArticlePage() {
                         </span>
                     </p>
                     <p className="mt-5 text-xs text-market-muted">
-                        Los artículos se mantienen al navegar por el sitio. Al recargar la página,
-                        el inventario comienza vacío.
+                        Los artículos que ingreses se conservan durante esta sesión. Al recargar la
+                        página, se restablece el inventario de muestra.
                     </p>
                 </aside>
             </section>

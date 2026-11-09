@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { initialInventory, inventoryReducer } from '../context/inventoryReducer.js';
+import { validateArticle } from './inventory.js';
 
 const milk = { id: 'milk', name: 'Leche', brand: 'Vecino', type: 'Lácteos', stock: 3 };
 const rice = { id: 'rice', name: 'Arroz', brand: 'Vecino', type: 'Despensa', stock: 5 };
@@ -9,10 +10,22 @@ const inventory = { articles: [milk, rice], cart: [] };
 const increase = { type: 'cart/increased', articleId: milk.id };
 const decrease = { type: 'cart/decreased', articleId: milk.id };
 
-test('registers a product in an initially empty inventory', () => {
+test('starts with valid products, distinct identifiers, and an empty cart', () => {
+    const { articles, cart } = initialInventory;
+    assert.ok(articles.length > 0);
+    assert.equal(new Set(articles.map(({ id }) => id)).size, articles.length);
+    for (const article of articles) {
+        assert.ok(validateArticle(article).isValid);
+        assert.ok(article.stock > 0);
+    }
+    assert.deepEqual(cart, []);
+});
+
+test('registers a product alongside the initial stock', () => {
+    const snapshot = structuredClone(initialInventory);
     const state = inventoryReducer(initialInventory, { type: 'article/added', article: milk });
-    assert.deepEqual(state, { articles: [milk], cart: [] });
-    assert.deepEqual(initialInventory, { articles: [], cart: [] });
+    assert.deepEqual(state, { articles: [...snapshot.articles, milk], cart: [] });
+    assert.deepEqual(initialInventory, snapshot);
 });
 
 test('reserves only available units and restores them without changing other products', () => {

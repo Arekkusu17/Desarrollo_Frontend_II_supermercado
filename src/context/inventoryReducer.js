@@ -1,4 +1,6 @@
-export const initialInventory = { articles: [], cart: [] };
+import { initialArticles } from '../data/initialArticles.js';
+
+export const initialInventory = { articles: initialArticles, cart: [] };
 
 export function inventoryReducer(state, action) {
     if (action.type === 'article/added') {

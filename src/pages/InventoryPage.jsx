@@ -19,7 +19,8 @@ export default function InventoryPage() {
                         Nuestro inventario<span>.</span>
                     </h1>
                     <p className="text-sm text-market-muted md:text-base">
-                        Consulta los artículos que has registrado en esta sesión.
+                        Consulta las existencias de los productos de muestra y los artículos que
+                        registres.
                     </p>
                 </div>
                 <Link
@@ -140,8 +141,8 @@ export default function InventoryPage() {
                     </table>
                 </div>
                 <p className="mt-5 text-xs text-market-muted">
-                    Los artículos se mantienen durante esta sesión. Al recargar la página, el
-                    inventario se reinicia.
+                    Al recargar la página, se restablece el inventario de muestra y se vacía el
+                    carrito.
                 </p>
             </section>
         </>
