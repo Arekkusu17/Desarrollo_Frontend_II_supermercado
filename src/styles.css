@@ -316,13 +316,8 @@
     }
     .faq-layout {
         display: grid;
-        grid-template-columns: 1fr 1.7fr;
-        gap: 60px;
+        gap: 15px;
         min-height: 380px;
-    }
-    .faq-layout > div > p:not(.eyebrow) {
-        font-size: 13px;
-        color: var(--muted);
     }
     .faq-list details {
         border-bottom: 1px solid var(--line);
@@ -394,9 +389,6 @@
         .section-aside {
             display: none;
         }
-        .faq-layout {
-            gap: 28px;
-        }
     }
 
     @media (max-width: 640px) {
@@ -429,8 +421,7 @@
             border-top-left-radius: 100px;
         }
         .department-grid,
-        .values,
-        .faq-layout {
+        .values {
             grid-template-columns: 1fr;
         }
         .department-grid {
@@ -452,9 +443,6 @@
         }
         .page-intro {
             padding-block: 35px;
-        }
-        .faq-layout {
-            gap: 15px;
         }
         .values {
             gap: 22px;
