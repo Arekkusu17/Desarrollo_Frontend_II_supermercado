@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { validateArticle, MAX_ARTICLE_FIELD_LENGTH } from './inventory.js';
 
-const validArticle = { name: 'Leche entera', brand: 'Marca de prueba', type: 'Lácteos' };
+const validArticle = { name: 'Leche entera', brand: 'Marca de prueba', type: 'Lácteos', stock: 3 };
 
 test('accepts complete articles including accents', () => {
     assert.deepEqual(validateArticle(validArticle), {
@@ -13,12 +13,13 @@ test('accepts complete articles including accents', () => {
 });
 
 test('trims the three fields without mutating the input', () => {
-    const input = { name: '  Pan  ', brand: '  Vecino ', type: ' Panadería  ' };
+    const input = { name: '  Pan  ', brand: '  Vecino ', type: ' Panadería  ', stock: ' 8 ' };
     const snapshot = { ...input };
     assert.deepEqual(validateArticle(input).article, {
         name: 'Pan',
         brand: 'Vecino',
         type: 'Panadería',
+        stock: 8,
     });
     assert.deepEqual(input, snapshot);
 });
@@ -35,7 +36,7 @@ test('rejects missing and non-text data without throwing', () => {
     for (const values of [undefined, null, {}, { name: 42, brand: [], type: false }]) {
         const result = validateArticle(values);
         assert.equal(result.isValid, false);
-        assert.deepEqual(Object.keys(result.errors), ['name', 'brand', 'type']);
+        assert.deepEqual(Object.keys(result.errors), ['name', 'brand', 'type', 'stock']);
     }
 });
 
@@ -52,5 +53,19 @@ test('accepts the field length limit and rejects values above it', () => {
         });
         assert.equal(result.isValid, false);
         assert.deepEqual(Object.keys(result.errors), [field]);
+    }
+});
+
+test('accepts zero stock', () => {
+    const result = validateArticle({ ...validArticle, stock: '0' });
+    assert.equal(result.isValid, true);
+    assert.equal(result.article.stock, 0);
+});
+
+test('rejects missing, fractional, negative, and unsafe stock quantities', () => {
+    for (const stock of [undefined, null, '', '  ', 'abc', '1.5', '-1', true, '9007199254740992']) {
+        const result = validateArticle({ ...validArticle, stock });
+        assert.equal(result.isValid, false);
+        assert.deepEqual(Object.keys(result.errors), ['stock']);
     }
 });
