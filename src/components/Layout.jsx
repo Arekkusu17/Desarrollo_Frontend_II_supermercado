@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Link, matchPath, Outlet, useLocation } from 'react-router-dom';
 import BottomNav from './BottomNav.jsx';
 import InventoryNav from './InventoryNav.jsx';
 
@@ -7,6 +7,7 @@ const pageTitles = {
     '/': 'Inicio',
     '/inventario': 'Inventario',
     '/inventario/nuevo': 'Ingresar artículo',
+    '/carrito': 'Carrito',
     '/quienes-somos': 'Quiénes somos',
     '/preguntas-frecuentes': 'Preguntas frecuentes',
 };
@@ -17,7 +18,12 @@ export default function Layout() {
     const previousPath = useRef(pathname);
 
     useEffect(() => {
-        document.title = `${pageTitles[pathname] ?? 'Página no encontrada'} | Mercado Vecino`;
+        const title =
+            pageTitles[pathname] ??
+            (matchPath('/inventario/:id', pathname)
+                ? 'Detalle del artículo'
+                : 'Página no encontrada');
+        document.title = `${title} | Mercado Vecino`;
         if (previousPath.current !== pathname) {
             window.scrollTo(0, 0);
             mainRef.current?.focus({ preventScroll: true });
@@ -27,12 +33,24 @@ export default function Layout() {
 
     return (
         <>
-            <a className="skip-link" href="#main-content">
+            <a
+                className="skip-link"
+                href="#main-content"
+                onClick={(event) => {
+                    event.preventDefault();
+                    mainRef.current?.focus();
+                }}
+            >
                 Saltar al contenido
             </a>
             <header className="site-header">
                 <Link className="brand" to="/" aria-label="Mercado Vecino, inicio">
-                    <img src="/favicon.svg" width="42" height="42" alt="" />
+                    <img
+                        src={`${import.meta.env.BASE_URL}favicon.svg`}
+                        width="42"
+                        height="42"
+                        alt=""
+                    />
                     <span>
                         mercado<span className="brand-light">vecino</span>
                         <small>BUENO, FRESCO Y CERCANO</small>
@@ -46,7 +64,6 @@ export default function Layout() {
             </main>
             <footer className="site-footer">
                 <span>Mercado Vecino</span>
-                <span>Proyecto académico · Supermercado ficticio</span>
             </footer>
             <BottomNav />
         </>

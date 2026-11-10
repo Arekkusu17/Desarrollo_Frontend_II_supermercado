@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom';
 import { useInventory } from '../context/InventoryContext.jsx';
 import { MAX_ARTICLE_FIELD_LENGTH } from '../utils/inventory.js';
 
-const emptyForm = { name: '', brand: '', type: '' };
+const emptyForm = { name: '', brand: '', type: '', stock: '' };
 const fields = [
     { name: 'name', label: 'Nombre del artículo', placeholder: 'Ej. Leche entera' },
     { name: 'brand', label: 'Marca', placeholder: 'Ej. Marca Vecina' },
     { name: 'type', label: 'Tipo de producto', placeholder: 'Ej. Lácteos' },
+    { name: 'stock', label: 'Stock inicial', placeholder: 'Ej. 12', type: 'number' },
 ];
 
 export default function AddArticlePage() {
@@ -57,7 +58,7 @@ export default function AddArticlePage() {
                     </h2>
                     <p id="form-instructions" className="mb-7 text-sm text-market-muted">
                         Todos los campos son obligatorios. Usa hasta {MAX_ARTICLE_FIELD_LENGTH}{' '}
-                        caracteres por campo.
+                        caracteres en los campos de texto e ingresa el stock en unidades enteras.
                     </p>
                     <form
                         onSubmit={handleSubmit}
@@ -80,7 +81,10 @@ export default function AddArticlePage() {
                                     onChange={handleChange}
                                     placeholder={field.placeholder}
                                     required
-                                    maxLength={MAX_ARTICLE_FIELD_LENGTH}
+                                    type={field.type ?? 'text'}
+                                    {...(field.type === 'number'
+                                        ? { min: 0, step: 1 }
+                                        : { maxLength: MAX_ARTICLE_FIELD_LENGTH })}
                                     aria-invalid={Boolean(errors[field.name])}
                                     aria-describedby={
                                         errors[field.name] ? `${field.name}-error` : undefined
@@ -131,8 +135,8 @@ export default function AddArticlePage() {
                         Todo en un mismo lugar.
                     </h2>
                     <p className="my-5 text-sm text-market-muted">
-                        El nombre, la marca y el tipo de producto te ayudarán a identificar cada
-                        artículo registrado.
+                        El tipo de producto permite filtrar el inventario. El stock inicial indica
+                        cuántas unidades quedan disponibles al registrar el artículo.
                     </p>
                     <p className="border-t border-market/15 pt-5">
                         <strong className="text-4xl font-medium tabular-nums">
@@ -145,8 +149,8 @@ export default function AddArticlePage() {
                         </span>
                     </p>
                     <p className="mt-5 text-xs text-market-muted">
-                        Los artículos se mantienen al navegar por el sitio. Al recargar la página,
-                        el inventario comienza vacío.
+                        Los artículos que ingreses se conservan durante esta sesión. Al recargar la
+                        página, se restablece el inventario de muestra.
                     </p>
                 </aside>
             </section>

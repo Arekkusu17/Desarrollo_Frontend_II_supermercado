@@ -7,7 +7,8 @@ const linkClasses = ({ isActive }) =>
     }`;
 
 export default function InventoryNav() {
-    const { articles } = useInventory();
+    const { articles, cart } = useInventory();
+    const totalUnits = cart.reduce((total, item) => total + item.quantity, 0);
 
     return (
         <div className="mx-auto flex max-w-[1240px] flex-wrap items-center justify-between gap-3 border-b border-market-line px-5 py-4 min-[641px]:px-7 min-[901px]:px-12">
@@ -23,6 +24,33 @@ export default function InventoryNav() {
                 </NavLink>
                 <NavLink className={linkClasses} to="/inventario/nuevo">
                     <span aria-hidden="true">+</span> Ingresar artículo
+                </NavLink>
+                <NavLink
+                    className={linkClasses}
+                    to="/carrito"
+                    aria-label={`Carrito, ${totalUnits} ${totalUnits === 1 ? 'unidad' : 'unidades'}`}
+                >
+                    Carrito
+                    <span className="relative" aria-hidden="true">
+                        <svg
+                            className="size-5"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.8"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        >
+                            <path d="M2 3h3l3 12h11l2-8H6" />
+                            <circle cx="9" cy="20" r="1.25" />
+                            <circle cx="18" cy="20" r="1.25" />
+                        </svg>
+                        {totalUnits > 0 && (
+                            <span className="absolute -top-2 right-0 flex h-4 min-w-4 translate-x-1/2 items-center justify-center rounded-full bg-market-accent px-1 text-[10px] leading-none font-bold text-white tabular-nums ring-2 ring-market-paper">
+                                {totalUnits}
+                            </span>
+                        )}
+                    </span>
                 </NavLink>
             </nav>
         </div>

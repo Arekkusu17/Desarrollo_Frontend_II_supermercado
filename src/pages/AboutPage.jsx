@@ -16,13 +16,11 @@ export default function AboutPage() {
                 </p>
             </section>
             <section className="story section-space">
-                <div className="story-heading">
-                    <span className="large-flower" aria-hidden="true">
-                        ✳
-                    </span>
-                    <h2>Lo que nos mueve.</h2>
-                </div>
+                <span className="large-flower" aria-hidden="true">
+                    ✳
+                </span>
                 <div>
+                    <h2>Lo que nos mueve.</h2>
                     <p>
                         Somos una propuesta de supermercado pensada para acompañar la vida
                         cotidiana. Reunimos productos de despensa, frutas, verduras y panadería en
@@ -32,10 +30,6 @@ export default function AboutPage() {
                         Creemos en la información clara, en una selección fácil de recorrer y en el
                         trato amable. Nuestra identidad combina lo práctico de un supermercado con
                         la calidez de un negocio de barrio.
-                    </p>
-                    <p className="academic-note">
-                        Mercado Vecino es una marca ficticia creada para un proyecto académico. La
-                        información de este sitio es demostrativa.
                     </p>
                 </div>
             </section>

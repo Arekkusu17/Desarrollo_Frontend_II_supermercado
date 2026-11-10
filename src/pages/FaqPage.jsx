@@ -40,7 +40,6 @@ export default function FaqPage() {
                 <div>
                     <p className="eyebrow">TE AYUDAMOS</p>
                     <h2 id="faq-title">Lo que necesitas saber.</h2>
-                    <p>Abre cada pregunta para leer su respuesta.</p>
                 </div>
                 <div className="faq-list">
                     {questions.map(([question, answer], index) => (

@@ -9,6 +9,7 @@
     "scripts": {
         "dev": "vite --host 127.0.0.1",
         "build": "vite build",
+        "build:pages": "vite build --base=./ --mode pages",
         "preview": "vite preview --host 127.0.0.1",
         "format": "prettier --write .",
         "format:check": "prettier --check .",

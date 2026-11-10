@@ -43,7 +43,7 @@ export default function HomePage() {
                 </div>
                 <img
                     className="hero-art"
-                    src="/assets/images/market-selection.webp"
+                    src={`${import.meta.env.BASE_URL}assets/images/market-selection.webp`}
                     width="1040"
                     height="840"
                     alt="Bolsa de Mercado Vecino acompañada de hojas verdes y naranjas."

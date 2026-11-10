@@ -292,23 +292,17 @@
         color: var(--muted);
         font-size: 16px;
     }
-    .story {
-        display: grid;
-        grid-template-columns: 1fr 1.4fr;
-        gap: 60px;
+    .story h2 {
+        margin-bottom: 25px;
     }
     .story p {
         color: var(--muted);
         font-size: 15px;
     }
     .large-flower {
+        display: block;
         font-size: 72px;
         color: #a65f3d;
-    }
-    .academic-note {
-        border-left: 2px solid #9da98d;
-        padding-left: 20px;
-        font-size: 12px !important;
     }
     .values {
         border-top: 1px solid var(--line);
@@ -322,13 +316,8 @@
     }
     .faq-layout {
         display: grid;
-        grid-template-columns: 1fr 1.7fr;
-        gap: 60px;
+        gap: 15px;
         min-height: 380px;
-    }
-    .faq-layout > div > p:not(.eyebrow) {
-        font-size: 13px;
-        color: var(--muted);
     }
     .faq-list details {
         border-bottom: 1px solid var(--line);
@@ -367,6 +356,21 @@
         min-height: 65vh;
     }
 
+    @media (min-width: 768px) {
+        .story {
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr);
+            align-items: start;
+            column-gap: clamp(24px, 5vw, 60px);
+        }
+        .story h2 {
+            margin: 0 0 10px;
+        }
+        .large-flower {
+            line-height: 1;
+        }
+    }
+
     @media (max-width: 900px) {
         .site-header,
         main,
@@ -384,9 +388,6 @@
         }
         .section-aside {
             display: none;
-        }
-        .faq-layout {
-            gap: 28px;
         }
     }
 
@@ -420,9 +421,7 @@
             border-top-left-radius: 100px;
         }
         .department-grid,
-        .values,
-        .story,
-        .faq-layout {
+        .values {
             grid-template-columns: 1fr;
         }
         .department-grid {
@@ -444,10 +443,6 @@
         }
         .page-intro {
             padding-block: 35px;
-        }
-        .story,
-        .faq-layout {
-            gap: 15px;
         }
         .values {
             gap: 22px;
