@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useInventory } from '../context/InventoryContext.jsx';
+import { formatPrice } from '../utils/inventory.js';
 
 export default function InventoryPage() {
     const { articles } = useInventory();
@@ -70,7 +71,7 @@ export default function InventoryPage() {
                 >
                     <table className="w-full min-w-[520px] border-collapse text-left text-sm">
                         <caption className="sr-only">
-                            Artículos con nombre, marca, tipo de producto y stock disponible
+                            Artículos con nombre, marca, tipo, precio unitario y stock disponible
                         </caption>
                         <thead className="bg-market text-white">
                             <tr>
@@ -85,6 +86,9 @@ export default function InventoryPage() {
                                 </th>
                                 <th scope="col" className="px-5 py-4 font-medium">
                                     Tipo de producto
+                                </th>
+                                <th scope="col" className="px-5 py-4 font-medium">
+                                    Precio
                                 </th>
                                 <th scope="col" className="px-5 py-4 font-medium">
                                     Stock
@@ -119,12 +123,15 @@ export default function InventoryPage() {
                                     <td className="max-w-56 break-words px-5 py-5 text-market-muted">
                                         {article.type}
                                     </td>
+                                    <td className="px-5 py-5 whitespace-nowrap tabular-nums">
+                                        {formatPrice(article.price)}
+                                    </td>
                                     <td className="px-5 py-5 tabular-nums">{article.stock}</td>
                                 </tr>
                             ))}
                             {articles.length === 0 && (
                                 <tr>
-                                    <td colSpan={5} className="px-6 py-12 text-center">
+                                    <td colSpan={6} className="px-6 py-12 text-center">
                                         <p className="font-medium">
                                             Aún no hay artículos en el inventario.
                                         </p>
