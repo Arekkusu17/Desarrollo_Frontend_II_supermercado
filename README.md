@@ -11,9 +11,9 @@ Proyecto de Desarrollo Frontend II (PFY2202) desarrollado con React, React Route
 ## Funcionalidades principales
 
 - Inventario con productos de muestra y filtro por categoría.
-- Formulario para registrar productos con nombre, marca, tipo y stock inicial.
+- Formulario para registrar productos con nombre, marca, tipo, stock inicial y precio unitario en pesos chilenos.
 - Detalle del producto en un modal desde el listado y en una página al abrir su enlace directo.
-- Carrito con controles de cantidad y actualización del stock.
+- Carrito con controles de cantidad, subtotales, total y actualización del stock.
 - Diseño adaptable para escritorio y dispositivos móviles.
 
 Al recargar la página, se restablece el inventario de muestra y se vacía el carrito.

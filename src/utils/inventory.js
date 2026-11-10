@@ -1,5 +1,14 @@
 export const MAX_ARTICLE_FIELD_LENGTH = 80;
 
+const priceFormatter = new Intl.NumberFormat('es-CL', {
+    style: 'currency',
+    currency: 'CLP',
+});
+
+export function formatPrice(price) {
+    return priceFormatter.format(price);
+}
+
 const fieldLabels = {
     name: 'nombre',
     brand: 'marca',
@@ -29,6 +38,16 @@ export function validateArticle(values) {
         errors.stock = 'Ingresa un stock inicial entero igual o mayor que cero.';
     } else {
         article.stock = stock;
+    }
+
+    const priceInput = values?.price;
+    const price =
+        typeof priceInput === 'string' && priceInput.trim() ? Number(priceInput) : priceInput;
+
+    if (!Number.isSafeInteger(price) || price < 1) {
+        errors.price = 'Ingresa un precio unitario entero mayor que cero en pesos chilenos.';
+    } else {
+        article.price = price;
     }
 
     return { article, errors, isValid: Object.keys(errors).length === 0 };

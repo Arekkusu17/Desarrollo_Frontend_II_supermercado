@@ -3,8 +3,15 @@ import assert from 'node:assert/strict';
 import { initialInventory, inventoryReducer } from '../context/inventoryReducer.js';
 import { validateArticle } from './inventory.js';
 
-const milk = { id: 'milk', name: 'Leche', brand: 'Vecino', type: 'Lácteos', stock: 3 };
-const rice = { id: 'rice', name: 'Arroz', brand: 'Vecino', type: 'Despensa', stock: 5 };
+const milk = { id: 'milk', name: 'Leche', brand: 'Vecino', type: 'Lácteos', stock: 3, price: 1390 };
+const rice = {
+    id: 'rice',
+    name: 'Arroz',
+    brand: 'Vecino',
+    type: 'Despensa',
+    stock: 5,
+    price: 1590,
+};
 const inventory = { articles: [milk, rice], cart: [] };
 
 const increase = { type: 'cart/increased', articleId: milk.id };
