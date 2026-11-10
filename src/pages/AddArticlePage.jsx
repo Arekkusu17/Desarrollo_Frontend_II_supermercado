@@ -3,12 +3,19 @@ import { Link } from 'react-router-dom';
 import { useInventory } from '../context/InventoryContext.jsx';
 import { MAX_ARTICLE_FIELD_LENGTH } from '../utils/inventory.js';
 
-const emptyForm = { name: '', brand: '', type: '', stock: '' };
+const emptyForm = { name: '', brand: '', type: '', stock: '', price: '' };
 const fields = [
     { name: 'name', label: 'Nombre del artículo', placeholder: 'Ej. Leche entera' },
     { name: 'brand', label: 'Marca', placeholder: 'Ej. Marca Vecina' },
     { name: 'type', label: 'Tipo de producto', placeholder: 'Ej. Lácteos' },
-    { name: 'stock', label: 'Stock inicial', placeholder: 'Ej. 12', type: 'number' },
+    { name: 'stock', label: 'Stock inicial', placeholder: 'Ej. 12', type: 'number', min: 0 },
+    {
+        name: 'price',
+        label: 'Precio unitario (CLP)',
+        placeholder: 'Ej. 1390',
+        type: 'number',
+        min: 1,
+    },
 ];
 
 export default function AddArticlePage() {
@@ -58,7 +65,8 @@ export default function AddArticlePage() {
                     </h2>
                     <p id="form-instructions" className="mb-7 text-sm text-market-muted">
                         Todos los campos son obligatorios. Usa hasta {MAX_ARTICLE_FIELD_LENGTH}{' '}
-                        caracteres en los campos de texto e ingresa el stock en unidades enteras.
+                        caracteres en los campos de texto. Ingresa el stock y el precio en números
+                        enteros.
                     </p>
                     <form
                         onSubmit={handleSubmit}
@@ -83,7 +91,7 @@ export default function AddArticlePage() {
                                     required
                                     type={field.type ?? 'text'}
                                     {...(field.type === 'number'
-                                        ? { min: 0, step: 1 }
+                                        ? { min: field.min, step: 1 }
                                         : { maxLength: MAX_ARTICLE_FIELD_LENGTH })}
                                     aria-invalid={Boolean(errors[field.name])}
                                     aria-describedby={

@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useInventory } from '../context/InventoryContext.jsx';
+import { formatPrice } from '../utils/inventory.js';
 import NotFoundPage from './NotFoundPage.jsx';
 
 function ArticleDetailDialog({ title, onDismiss, children }) {
@@ -55,6 +56,12 @@ export default function ArticleDetailPage({ asDialog = false }) {
                 <div className="min-w-0">
                     <dt className="text-sm text-market-muted">Tipo de producto</dt>
                     <dd className="font-medium wrap-break-word">{article.type}</dd>
+                </div>
+                <div className="min-w-0">
+                    <dt className="text-sm text-market-muted">Precio unitario</dt>
+                    <dd className="font-medium tabular-nums wrap-break-word">
+                        {formatPrice(article.price)}
+                    </dd>
                 </div>
             </dl>
             <p role="status" className="mt-6 text-sm text-market-muted">
